@@ -87,4 +87,12 @@ public class DriversLicenseTest {
         assertEquals(testLicense.serializeToCSV(),actualDeCSVResult.get(2).serializeToCSV());
 
     }
+
+    @Test
+    public void testDeserializeFromCSVWithHeader(){
+        ArrayList<DriversLicense> actualDeCSVResult= DriversLicense.deserializeFromCSV(DriversLicense.getCSVHeader()+"\n"
+                +testLicense.serializeToCSV());
+        assertEquals(testLicense.serializeToCSV(),actualDeCSVResult.get(0).serializeToCSV());
+
+    }
 }

@@ -181,27 +181,29 @@ public class DriversLicense {
         Scanner csvInput=new Scanner(csv);
         SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("mm/dd/yyyy");
         while(csvInput.hasNextLine()){
-            DriversLicense driversLicense=new DriversLicense();
-            String csvArray[]=csvInput.nextLine().split(",");
-            driversLicense.setName(csvArray[0]);
-            driversLicense.setAddress(csvArray[1]);
-            driversLicense.setEyeColor(csvArray[2]);
-            try {
-                driversLicense.setDateOfBirth(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(csvArray[3]));
-                driversLicense.setIssueDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(csvArray[4]));
-                driversLicense.setExpirationDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(csvArray[5]));
-            } catch (ParseException e) {
-                e.printStackTrace();
-                System.out.println("parse data error");
+            String csvString=csvInput.nextLine();
+            if(!csvString.equals(getCSVHeader())) {
+                DriversLicense driversLicense=new DriversLicense();
+                String csvArray[] = csvString.split(",");
+                driversLicense.setName(csvArray[0]);
+                driversLicense.setAddress(csvArray[1]);
+                driversLicense.setEyeColor(csvArray[2]);
+                try {
+                    driversLicense.setDateOfBirth(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(csvArray[3]));
+                    driversLicense.setIssueDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(csvArray[4]));
+                    driversLicense.setExpirationDate(new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(csvArray[5]));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    System.out.println("parse data error");
+                }
+                driversLicense.setLicenseNumber(csvArray[6]);
+                driversLicense.setIssuingState(csvArray[7]);
+                driversLicense.setEndorsements(csvArray[8]);
+                driversLicense.setSex(csvArray[9].charAt(0));
+                driversLicense.setFederallyCompliant(Boolean.valueOf(csvArray[10]));
+                driversLicense.setLicenseClassification(csvArray[11].charAt(0));
+                driversLicenseArrayList.add(driversLicense);
             }
-            driversLicense.setLicenseNumber(csvArray[6]);
-            driversLicense.setIssuingState(csvArray[7]);
-            driversLicense.setEndorsements(csvArray[8]);
-            driversLicense.setSex(csvArray[9].charAt(0));
-            driversLicense.setFederallyCompliant(Boolean.valueOf(csvArray[10]));
-            driversLicense.setLicenseClassification(csvArray[11].charAt(0));
-            driversLicenseArrayList.add(driversLicense);
-
         }
         return driversLicenseArrayList;
     }
