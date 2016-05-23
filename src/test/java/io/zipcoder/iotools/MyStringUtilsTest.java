@@ -64,5 +64,15 @@ public class MyStringUtilsTest {
         Assert.assertArrayEquals(expectedStrings,actualStrings);
     }
 
+    @Test
+    public void rightJustifiedTest(){
+        String [] strings={"01234567890123456789012345678901234567890123456789012345678901234567890123456789","efg"};
+        String expectedString=String.format("%80s" ,strings[0]);
+        expectedString+="\t"+Integer.toHexString(strings[0].length())+"\n";
+        expectedString+=String.format("%80s" ,strings[1]) +"\t" +Integer.toHexString(strings[1].length())+"\n";
+        String actualString=MyStringUtils.rightJustified(strings);
+        Assert.assertEquals(expectedString,actualString);
+    }
+
 
 }

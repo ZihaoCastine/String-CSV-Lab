@@ -65,7 +65,7 @@ public class MyStringUtils {
                     String subString=each.substring(i,j+1);
                     if(!stringList.contains(subString)&& !subString.equals(" ")){
                         stringList.add(subString);
-                        System.out.println(subString);
+
                     }
                 }
             }
@@ -74,5 +74,14 @@ public class MyStringUtils {
 
     }
 
+    public static String rightJustified(String [] s){
+        StringBuilder stringBuilder=new StringBuilder();
+        for(String each: s){
+            stringBuilder.append((String.format("%80s", each)).substring(0,80)).append("\t"+Integer.toHexString(each.length())).append("\n");
+
+        }
+        //System.out.println(stringBuilder.toString());
+        return stringBuilder.toString();
+    }
 
 }
