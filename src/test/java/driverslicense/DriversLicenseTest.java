@@ -51,7 +51,7 @@ public class DriversLicenseTest {
         String actualCSVResult = testLicense.serializeToCSV();
 
         String expectedCSVResult = String.format("%s,%s,%s,%s,%s,%s,%s,%s,%s,%c,%b,%c",
-                name, address, eyeColor, "expectedDOB",expectedIssueDate, expectedExpirationDate,
+                name, address, eyeColor, expectedDOB,expectedIssueDate, expectedExpirationDate,
                 licenseNum, issuingState, trump, male, federallyCompliantStatus, licenseClassification);
 
         assertEquals("Actual CSV result did not match expectations.",expectedCSVResult, actualCSVResult);
@@ -78,7 +78,13 @@ public class DriversLicenseTest {
     public void testDeserializeFromCSV(){
         ArrayList<DriversLicense> actualDeCSVResult= DriversLicense.deserializeFromCSV(testLicense.serializeToCSV());
         assertEquals(testLicense.serializeToCSV(),actualDeCSVResult.get(0).serializeToCSV());
+    }
 
+    @Test
+    public void testDeserializeFromCSVWithMoreThanOneDriversLicense() {
+        ArrayList<DriversLicense> actualDeCSVResult= DriversLicense.deserializeFromCSV(testLicense.serializeToCSV()+"\n"+testLicense.serializeToCSV()+
+                "\n"+testLicense.serializeToCSV());
+        assertEquals(testLicense.serializeToCSV(),actualDeCSVResult.get(2).serializeToCSV());
 
     }
 }
